@@ -1,10 +1,13 @@
 import json
 import requests
+import random
 from random import randint
+import string
 
 s = requests.Session()
 file = open("Sizeaccounts.txt","a+")
-num_of_accounts = input("How many account?")
+num_of_accounts = input("How many accounts?  ")
+password_option = input("Type 1 to use password in config.json, type 2 to use random passwords:  ")
 
 headers = {
     'Content-Type': 'application/json',
@@ -19,21 +22,34 @@ headers = {
 with open("config.json") as jsons:
     config = json.load(jsons)
 
+email = config['email']
+
+index = config['email'].find("@")
 for n in range(0,int(num_of_accounts)):
-        index = config['email'].find("@")
         if index == -1:
-            account = str(randint(100000, 999999)) +"@" + config['email']
+            account = str(randint(100000, 999999)) +"@" + email
+            if password_option == "2":
+               config['password'] = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
             file.writelines(account + "," + config['password'] + "\n")
             print(account + "," + config['password'])
-            req = s.post("https://commerce.mesh.mx/stores/size/customers", headers=headers, json=config)
+            config['email'] = account
+            print(config)
+            s.post("https://commerce.mesh.mx/stores/size/customers", headers=headers, json=config)
         elif index == 0:
-            account = str(randint(100000, 999999)) + config['email']
+            account = str(randint(100000, 999999)) + email
+            if password_option == "2":
+               config['password'] = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
             file.writelines(account + "," + config['password'] + "\n")
             print(account + "," + config['password'])
-            req = s.post("https://commerce.mesh.mx/stores/size/customers", headers=headers, json=config)
+            config['email'] = account
+            print(config)
+            s.post("https://commerce.mesh.mx/stores/size/customers", headers=headers, json=config)
         else:
-             account = config['email'][:index] + "+" + str(randint(100000, 999999)) + config['email'][index:]
-             file.writelines(account + "," + config['password'] + "\n")
-             print(account + "," + config['password'])
-             req = s.post("https://commerce.mesh.mx/stores/size/customers", headers=headers, json=config)
-        #print(req.text) 
+            account = email[:index] + "+" + str(randint(100000, 999999)) + email[index:]
+            if password_option == "2":
+               config['password'] = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+            file.writelines(account + "," + config['password'] + "\n")
+            print(account + "," + config['password'])
+            config['email'] = account
+            print(config)
+            s.post("https://commerce.mesh.mx/stores/size/customers", headers=headers, json=config)
