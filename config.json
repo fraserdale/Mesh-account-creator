@@ -1,0 +1,21 @@
+{
+"phone": "",
+"password": "",
+"firstName": "",
+"gender": "M", //M or F
+"addresses": [
+{
+"locale": "gb",
+"country": "United Kingdom",
+"address1": "",
+"town": "",
+"postcode": "",
+"isPrimaryBillingAddress": true,
+"isPrimaryAddress": true
+}
+],
+"title": "",
+"email": "",
+"isGuest": false,
+"lastName": ""
+}
