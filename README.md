@@ -1,5 +1,6 @@
 # Mesh-account-creator
 Account creator for mesh group. Size, JDsport and FootPatrol
+For multiple accounts created, they are wrote to an external file.
 
 ## Single account:
 For single account creation, enter email desired in config.json
