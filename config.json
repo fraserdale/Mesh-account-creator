@@ -2,7 +2,7 @@
 "phone": "",
 "password": "",
 "firstName": "",
-"gender": "M", //M or F
+"gender": "M",
 "addresses": [
 {
 "locale": "gb",
