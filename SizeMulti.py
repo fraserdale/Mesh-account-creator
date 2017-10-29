@@ -29,34 +29,34 @@ for n in range(0,int(num_of_accounts)):
         if index == -1:
             account = str(randint(100000, 999999)) +"@" + email
             if password_option == "2":
-               config['password'] = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+               config['password'] = ''.join(random.choices(string.ascii_lowercase + string.digits, k=12))
             file.writelines(account + "," + config['password'] + "\n")
             config['email'] = account
             req = s.post("https://commerce.mesh.mx/stores/size/customers", headers=headers, json=config)
-            if req == "<Response [201]>":
-                print("Created succesfully: " + account + "," + config['password'])
+            if "error" in req.text:
+                print(req.text)
             else:
-                print(account + "," + config['password'] + req.text)
+                print(account + "," + config['password'] + "   Created succesfully" )
 
         elif index == 0:
             account = str(randint(100000, 999999)) + email
             if password_option == "2":
-               config['password'] = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+               config['password'] = ''.join(random.choices(string.ascii_lowercase + string.digits, k=12))
             file.writelines(account + "," + config['password'] + "\n")
             config['email'] = account
             req = s.post("https://commerce.mesh.mx/stores/size/customers", headers=headers, json=config)
-            if req == "<Response [201]>":
-                print("Created succesfully: " + account + "," + config['password'])
+            if "error" in req.text:
+                print(req.text)
             else:
-                print(account + "," + config['password'] + req.text)
+                print(account + "," + config['password'] + "   Created succesfully" )
         else:
             account = email[:index] + "+" + str(randint(100000, 999999)) + email[index:]
             if password_option == "2":
-               config['password'] = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+               config['password'] = ''.join(random.choices(string.ascii_lowercase + string.digits, k=12))
             file.writelines(account + "," + config['password'] + "\n")
             config['email'] = account
             req = s.post("https://commerce.mesh.mx/stores/size/customers", headers=headers, json=config)
-            if req == "<Response [201]>":
-                print("Created succesfully: " + account + "," + config['password'])
+            if "error" in req.text:
+                print(req.text)
             else:
-                print(account + "," + config['password'] + req.text)
+                print(account + "," + config['password'] + "   Created succesfully" )

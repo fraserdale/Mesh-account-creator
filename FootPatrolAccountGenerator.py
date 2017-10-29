@@ -17,4 +17,7 @@ with open("config.json") as jsons:
     config = json.load(jsons)
 
 req = s.post("https://commerce.mesh.mx/stores/footpatrol/customers", headers=headers, json=config)
-print(req.text)
+if "error" in req.text:
+    print(req.text)
+else:
+    print("Created succesfully")
